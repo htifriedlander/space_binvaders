@@ -13,8 +13,8 @@ ALIEN_MOVE_INTERVAL = 500  # in milliseconds
 
 class SpaceBinvaders:
 
-	def __init__(self):
-		self.screen = self.create_screen()
+	def __init__(self, screen_width_ratio=0.33, screen_height_ratio=0.66):
+		self.screen = self.create_screen(screen_width_ratio, screen_height_ratio)
 		self.screen_width = self.screen.window_width()
 		self.screen_height = self.screen.window_height()
 		self.bottom_edge = -self.screen_height / 2 * SCREEN_BUFFER
@@ -32,9 +32,9 @@ class SpaceBinvaders:
 		self.alien_move_iters = 0
 
 
-	def create_screen(self, screen_width=0.33, screen_height=0.66):
+	def create_screen(self, screen_width_ratio, screen_height_ratio):
 		screen = t.Screen()
-		screen.setup(screen_width, screen_height)
+		screen.setup(screen_width_ratio, screen_height_ratio)
 		screen.bgcolor(BG_COLOR)
 		screen.title(TITLE)
 
@@ -64,7 +64,7 @@ class SpaceBinvaders:
 			# set the alien position. start at the left side of the screen
 			alien.setpos(left_spawn_edge + (alien_gap * x), self.top_edge)
 
-			# add aliens to a list so we can move them
+			# add aliens to a list so we can move them later on
 			aliens.append(alien)
 
 		return aliens
